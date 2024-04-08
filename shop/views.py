@@ -4,6 +4,7 @@ from django.contrib import messages
 
 # Create your views here.
 def contact_view(request):
+    # messages.success(request, "contact page pe h aap!")
     if request.method == 'POST':
         # extract info from the form
         name = request.POST.get('name')
