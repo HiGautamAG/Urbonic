@@ -3,20 +3,20 @@ from .models import Contact
 from django.contrib import messages
 
 # Create your views here.
-
-
 def contact_view(request):
+    # messages.success(request, "contact page pe h aap!")
     if request.method == 'POST':
+        # extract info from the form
         name = request.POST.get('name')
         email = request.POST.get('email')
         subject = request.POST.get('subject')
         message = request.POST.get('message')
-        
-        if len(name)> 0 and len(email)>0 and len(subject)> 0 and len(message)>0:
-            Contact = Contact(name=name, email=email, subject=subject, message=message)
-            Contact.save()
-            message.success (request, "your message has been successful")
+        if len(name)> 0 and len(email)> 0 and len(subject)> 0 and len(message)> 0:
+            # save the data to the database
+            contact = Contact(name=name, email=email, subject=subject, message=message)
+            contact.save()
+            messages.success(request, "Your message has been sent successfully!")
             return redirect('contact')
         else:
-            message.error (request, "please fill in all the field")
+            messages.error(request, "Please fill in all the fields!")
     return render(request, 'contact.html')
